@@ -3,10 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <title></title>
+        <link href="css/site.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <script src="javascript/jquery-1.10.2.min.js"></script>
-        <script src="javascript/iscroll.js"></script>
-        <script src="javascript/bootstrap.min.js"></script>
         <script src="javascript/createjs-2013.09.25.min.js"></script>
     </head>
     <body>
@@ -14,7 +13,7 @@
             .timeline-outer {
                 overflow: hidden; 
                 width: 100%; 
-                height: 500px;
+                height: 754px;
             }
             .timeline-inner {
                 overflow-y: auto; 
@@ -24,12 +23,30 @@
                 padding-right: 18px;
                 background-color: #666;
             }
+            .timeline-image {
+                padding-left: 100px;
+            }
+            .button {
+                background: #1DB1EE;
+                padding: 6px 12px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: White;
+                width: 200px;
+                font-size: 20px;
+            }
         </style>
         <div>
-            <img src="images/profilebg_02.jpg" style="z-index: 1;"/>
-            <div style="position: absolute; top: 0px; left: 0px; width: 768px;">
+            <div style="position: absolute; top: 0px; background: #1DB1EE; text-align: center; height: 100px; width: 768px;">
+                <p style="font-size: 38px; color: White; margin-top: 20px;">Personal Health Passport</p>
+            </div>
+            <img src="images/profilebg_02.jpg" style="z-index: 1; margin-top: 100px;"/>
+            <div style="position: absolute; top: 60px; left: 0px; width: 768px;">
                 <div style="text-align: center; margin-top: 75px;">
                     <img src="images/profileface.png" style="z-index: 2; "/>
+                    <p style="color: #DDD; font-size: 28px; margin-top: 5px;">Firstname Lastname</p>
+                    <p style="color: #DDD; font-size: 18px;">Status: (Green)</p>
+                    <button id="btnDetails" class="button" onclick="navigateToDetails();">DETAILS</button>
                 </div>
 
             </div>
@@ -37,43 +54,49 @@
         <div>
             <canvas id="main-canvas"></canvas>
         </div>
-        <div class="tab-content">
-            <div class="tab-pane active" id="year">
-                <div class="timeline-outer">
-                    <div id="year-inner" class="timeline-inner">
-                        <img id="year-timeline" src="images/timeline-line.jpg" />
+        <div>
+            <div style="position: absolute; top: 618px; width: 768px;">
+                <img src="images/gradient-overlay_top.png" style="z-index: 200;"/>
+            </div>
+            <div style="position: absolute; top: 1213px; width: 768px;">
+                <img src="images/gradient-overlay-bottom.png" style="z-index: 200;"/>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane" id="year">
+                    <div class="timeline-outer">
+                        <div id="year-inner" class="timeline-inner">
+                            <img id="year-timeline" class="timeline-image" src="images/timeline-line.jpg" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="month">
-                <div class="timeline-outer">
-                    <div id="month-inner" class="timeline-inner">
-                        <img id="month-timeline" src="images/timeline-line.jpg" />
+                <div class="tab-pane active" id="month">
+                    <div class="timeline-outer">
+                        <div id="month-inner" class="timeline-inner">
+                            <img id="month-timeline" class="timeline-image" src="images/timeline-line.jpg" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="week">
-                <div class="timeline-outer">
-                    <div id="week-inner" class="timeline-inner">
-                        <img id="week-timeline" src="images/timeline-line.jpg" />
+                <div class="tab-pane" id="week">
+                    <div class="timeline-outer">
+                        <div id="week-inner" class="timeline-inner">
+                            <img id="week-timeline" class="timeline-image" src="images/timeline-line.jpg" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="day">
-                <div class="timeline-outer">
-                    <div id="day-inner" class="timeline-inner">
-                        <img id="day-timeline" src="images/timeline-line.jpg" />
+                <div class="tab-pane" id="day">
+                    <div class="timeline-outer">
+                        <div id="day-inner" class="timeline-inner">
+                            <img id="day-timeline" class="timeline-image" src="images/timeline-line.jpg" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <script>
             var canvas, stage, preload;
-            var currTab = "year";
+            var currTab = "month";
             var selection;
             $(function () {
-                replaceTimeline("year");
-
                 canvas = document.getElementById("main-canvas");
                 canvas.height = 75;
                 canvas.width = 768;
@@ -98,7 +121,15 @@
                 stage.addChild(day);
 
                 selection = new createjs.Shape();
-                selection.graphics.beginFill('#93CCEA').drawRect(
+                selection.graphics.beginFill('#DDD').drawRect(
+                    0,
+                    65,
+                    canvas.width,
+                    10);
+                stage.addChild(selection);
+
+                selection = new createjs.Shape();
+                selection.graphics.beginFill('#1DB1EE').drawRect(
                     0,
                     65,
                     canvas.width / 4,
@@ -107,6 +138,8 @@
 
                 createjs.Ticker.setInterval(window.requestAnimationFrame);
                 createjs.Ticker.addEventListener("tick", tick);
+
+                scrollToCenter($('#year-inner'), $('#year-timeline'));
             })
             function onMouseClick(evt) {
                 $('#year').removeClass('active');
@@ -132,7 +165,7 @@
                 }
             }
             function scrollToCenter(parent, inner) {
-                $(parent).scrollTop(700);
+                $(parent).scrollTop(800);
             }
             function tick() {
                 switch (currTab) {
@@ -175,21 +208,8 @@
                 }
                 stage.update();
             }
-            function prepareAssets() {
-
-            }
-
-            function replaceTimeline(range) {
-                switch (range) {
-                    case "year":
-                        break;
-                    case "month":
-                        break;
-                    case "week":
-                        break;
-                    case "day":
-                        break;
-                }
+            function navigateToDetails() {
+                window.location.href = "details.html";
             }
         </script>
     </body>

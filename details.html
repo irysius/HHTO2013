@@ -4,26 +4,123 @@
     <head>
         <meta charset="utf-8" />
         <title></title>
+        <link href="css/site.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="javascript/jquery-1.10.2.min.js"></script>
+        <script src="javascript/createjs-2013.09.25.min.js"></script>
     </head>
     <body>
         <div>
-            <ul class="nav nav-tabs">
-                <li><a href="#tabOne" data-toggle="tab">Year</a></li>
-                <li><a href="#tabTwo" data-toggle="tab">Month</a></li>
-                <li><a href="#tabThree" data-toggle="tab">Week</a></li>
-            </ul>
-        </div>
-        
+            <canvas id="main-canvas"></canvas>
+        </div>        
         <div class="tab-content">
-            <div class="tab-pane active" id="tabOne">
+            <div class="tab-pane active" id="one">
                 <p>One</p>
             </div>
-            <div class="tab-pane" id="tabTwo">
+            <div class="tab-pane" id="two">
                 <p>Two</p>
             </div>
-            <div class="tab-pane" id="tabThree">
+            <div class="tab-pane" id="three">
                 <p>Three</p>
             </div>
         </div>
+        <script>
+            var canvas, stage, preload;
+            var currTab = "one";
+            var selection;
+            $(function () {
+                canvas = document.getElementById("main-canvas");
+                canvas.height = 75;
+                canvas.width = 768;
+                stage = new createjs.Stage(canvas);
+
+                stage.addEventListener("stagemousedown", onMouseClick);
+                var y = canvas.height / 2 - 10;
+
+                var one = new createjs.Text("ADHERENCE", "42px Calibri", "#666666");
+                one.x = 128 - one.getMeasuredWidth() / 2;
+                y = y - (one.getMeasuredHeight() / 2);
+                one.y = y;
+                stage.addChild(one);
+
+                var two = new createjs.Text("LIFESTYLE", "42px Calibri", "#666666");
+                two.x = 384 - two.getMeasuredWidth() / 2;
+                two.y = y;
+                stage.addChild(two);
+
+                var three = new createjs.Text("MEDICATION", "42px Calibri", "#666666");
+                three.x = 640 - three.getMeasuredWidth() / 2;
+                three.y = y;
+                stage.addChild(three);
+
+                selection = new createjs.Shape();
+                selection.graphics.beginFill('#DDD').drawRect(
+                    0,
+                    65,
+                    canvas.width,
+                    10);
+                stage.addChild(selection);
+
+                selection = new createjs.Shape();
+                selection.graphics.beginFill('#1DB1EE').drawRect(
+                    0,
+                    65,
+                    canvas.width / 3,
+                    10);
+                stage.addChild(selection);
+
+                createjs.Ticker.setInterval(window.requestAnimationFrame);
+                createjs.Ticker.addEventListener("tick", tick);
+            })
+            function onMouseClick(evt) {
+                $('#one').removeClass('active');
+                $('#two').removeClass('active');
+                $('#three').removeClass('active');
+                if (evt.stageX < 256) {
+                    $('#one').addClass('active');
+                    currTab = "one";
+                } else if (evt.stageX < 512) {
+                    $('#two').addClass('active');
+                    currTab = "two";
+                } else {
+                    $('#three').addClass('active');
+                    currTab = "three";
+                }
+            }
+            function tick() {
+                switch (currTab) {
+                    case "one":
+                        if (selection.x != 0) {
+                            selection.x -= 5;
+                            if (selection.x < 0)
+                                selection.x = 0;
+                        }
+                        break;
+                    case "two":
+                        if (selection.x < 256) {
+                            selection.x += 5;
+                            if (selection.x > 256)
+                                selection.x = 256;
+                        } else if (selection.x > 256) {
+                            selection.x -= 5;
+                            if (selection.x < 256)
+                                selection.x = 256;
+                        }
+                        break;
+                    case "three":
+                        if (selection.x < 512) {
+                            selection.x += 5;
+                            if (selection.x > 512)
+                                selection.x = 512;
+                        } else if (selection.x > 512) {
+                            selection.x -= 5;
+                            if (selection.x < 512)
+                                selection.x = 512;
+                        }
+                        break;
+                }
+                stage.update();
+            }
+        </script>
     </body>
 </html>
