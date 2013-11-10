@@ -22,10 +22,17 @@
                 height: 99%; 
                 width: 100%; 
                 padding-right: 18px;
+                background-color: #666;
             }
         </style>
         <div>
-            <img src="images/profilebg_02.jpg" />
+            <img src="images/profilebg_02.jpg" style="z-index: 1;"/>
+            <div style="position: absolute; top: 0px; left: 0px; width: 768px;">
+                <div style="text-align: center; margin-top: 75px;">
+                    <img src="images/profileface.png" style="z-index: 2; "/>
+                </div>
+
+            </div>
         </div>
         <div>
             <canvas id="main-canvas"></canvas>
@@ -33,29 +40,29 @@
         <div class="tab-content">
             <div class="tab-pane active" id="year">
                 <div class="timeline-outer">
-                    <div class="timeline-inner">
-                        <img src="images/timeline-line.jpg" style="text-align: center;"/>
+                    <div id="year-inner" class="timeline-inner">
+                        <img id="year-timeline" src="images/timeline-line.jpg" />
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="month">
                 <div class="timeline-outer">
-                    <div class="timeline-inner">
-                        <img src="images/timeline-line.jpg" style="text-align: center;"/>
+                    <div id="month-inner" class="timeline-inner">
+                        <img id="month-timeline" src="images/timeline-line.jpg" />
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="week">
                 <div class="timeline-outer">
-                    <div class="timeline-inner">
-                        <img src="images/timeline-line.jpg" style="text-align: center;"/>
+                    <div id="week-inner" class="timeline-inner">
+                        <img id="week-timeline" src="images/timeline-line.jpg" />
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="day">
                 <div class="timeline-outer">
-                    <div class="timeline-inner">
-                        <img src="images/timeline-line.jpg" />
+                    <div id="day-inner" class="timeline-inner">
+                        <img id="day-timeline" src="images/timeline-line.jpg" />
                     </div>
                 </div>
             </div>
@@ -109,16 +116,23 @@
                 if (evt.stageX < 192) {
                     $('#year').addClass('active');
                     currTab = "year";
+                    scrollToCenter($('#year-inner'), $('#year-timeline'));
                 } else if (evt.stageX < 384) {
                     $('#month').addClass('active');
                     currTab = "month";
+                    scrollToCenter($('#month-inner'), $('#month-timeline'));
                 } else if (evt.stageX < 576) {
                     $('#week').addClass('active');
                     currTab = "week";
+                    scrollToCenter($('#week-inner'), $('#week-timeline'));
                 } else {
                     $('#day').addClass('active');
                     currTab = "day";
+                    scrollToCenter($('#day-inner'), $('#day-timeline'));
                 }
+            }
+            function scrollToCenter(parent, inner) {
+                $(parent).scrollTop(700);
             }
             function tick() {
                 switch (currTab) {
