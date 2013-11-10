@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -10,9 +9,27 @@
         <script src="javascript/createjs-2013.09.25.min.js"></script>
     </head>
     <body>
+        <div style="position: absolute; top: 0px; background: #1DB1EE; text-align: center; height: 100px; width: 768px;">
+            <a href="profile.html">
+                
+            </a>
+            <p style="font-size: 38px; color: White; margin-top: 20px;">Personal Health Passport</p>
+        </div>
+        <img src="images/profilebg_02.jpg" style="z-index: 1; margin-top: 100px; width: 768px; height: 350px;" />
+        <div style="position: absolute; top: 20px; left: 0px; width: 768px;">
+            <div style="margin-top: 130px;">
+                <img src="images/profileface.png" style="z-index: 2; margin-left: 50px;" />
+            </div>
+        </div>
+        <div style="position: absolute; top: 20px; left: 0px; width: 768px;">
+            <div style="margin-left: 325px; margin-top: 200px;">
+                <p style="color: #DDD; font-size: 42px;">Firstname Lastname</p>
+                <p style="color: #DDD; font-size: 24px;">Status: (Orange)</p>
+            </div>
+        </div>
         <div>
             <canvas id="main-canvas"></canvas>
-        </div>        
+        </div>
         <div class="tab-content">
             <div class="tab-pane active" id="one">
                 <p>One</p>
@@ -33,26 +50,26 @@
                 canvas.height = 75;
                 canvas.width = 768;
                 stage = new createjs.Stage(canvas);
-
+            
                 stage.addEventListener("stagemousedown", onMouseClick);
                 var y = canvas.height / 2 - 10;
-
+            
                 var one = new createjs.Text("ADHERENCE", "42px Calibri", "#666666");
                 one.x = 128 - one.getMeasuredWidth() / 2;
                 y = y - (one.getMeasuredHeight() / 2);
                 one.y = y;
                 stage.addChild(one);
-
+            
                 var two = new createjs.Text("LIFESTYLE", "42px Calibri", "#666666");
                 two.x = 384 - two.getMeasuredWidth() / 2;
                 two.y = y;
                 stage.addChild(two);
-
+            
                 var three = new createjs.Text("MEDICATION", "42px Calibri", "#666666");
                 three.x = 640 - three.getMeasuredWidth() / 2;
                 three.y = y;
                 stage.addChild(three);
-
+            
                 selection = new createjs.Shape();
                 selection.graphics.beginFill('#DDD').drawRect(
                     0,
@@ -60,7 +77,7 @@
                     canvas.width,
                     10);
                 stage.addChild(selection);
-
+            
                 selection = new createjs.Shape();
                 selection.graphics.beginFill('#1DB1EE').drawRect(
                     0,
@@ -68,7 +85,7 @@
                     canvas.width / 3,
                     10);
                 stage.addChild(selection);
-
+            
                 createjs.Ticker.setInterval(window.requestAnimationFrame);
                 createjs.Ticker.addEventListener("tick", tick);
             })

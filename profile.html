@@ -48,7 +48,6 @@
                     <p style="color: #DDD; font-size: 18px;">Status: (Green)</p>
                     <button id="btnDetails" class="button" onclick="navigateToDetails();">DETAILS</button>
                 </div>
-
             </div>
         </div>
         <div>
@@ -107,19 +106,19 @@
 
                 stage.addEventListener("stagemousedown", onMouseClick);
 
-                var year = new createjs.Text("YEAR", "50px Calibri, Sans-Serif", "#666666");
+                var year = new createjs.Text("YEAR", "48px Calibri, Sans-Serif", "#666666");
                 year.x = 96 - year.getMeasuredWidth() / 2;
                 stage.addChild(year);
 
-                var month = new createjs.Text("MONTH", "50px Calibri, Sans-Serif", "#666666");
+                var month = new createjs.Text("MONTH", "48px Calibri, Sans-Serif", "#666666");
                 month.x = 288 - month.getMeasuredWidth() / 2;
                 stage.addChild(month);
 
-                var week = new createjs.Text("WEEK", "50px Calibri, Sans-Serif", "#666666");
+                var week = new createjs.Text("WEEK", "48px Calibri, Sans-Serif", "#666666");
                 week.x = 480 - week.getMeasuredWidth() / 2;
                 stage.addChild(week);
 
-                var day = new createjs.Text("DAY", "50px Calibri, Sans-Serif", "#666666");
+                var day = new createjs.Text("DAY", "48px Calibri, Sans-Serif", "#666666");
                 day.x = 672 - day.getMeasuredWidth() / 2;
                 stage.addChild(day);
 
