@@ -23,63 +23,47 @@
                 width: 100%; 
                 padding-right: 18px;
             }
-            .timeline-tab {
-                
-            }
         </style>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="#">
-            </div>
-            <div class="item">
-            </div>
-            <div class="item">
-            </div>
+        <div>
+            <img src="images/profilebg_02.jpg" />
         </div>
         <div>
-            <canvas id="main-canvas">
-
-            </canvas>
-            <ul class="nav nav-tabs">
-                <li><a href="#year" data-toggle="tab" class="timeline-tab">YEAR</a></li>
-                <li><a href="#month" data-toggle="tab" class="timeline-tab">MONTH</a></li>
-                <li><a href="#week" data-toggle="tab" class="timeline-tab">WEEK</a></li>
-                <li><a href="#day" data-toggle="tab" class="timeline-tab">DAY</a></li>
-            </ul>
+            <canvas id="main-canvas"></canvas>
         </div>
         <div class="tab-content">
             <div class="tab-pane active" id="year">
                 <div class="timeline-outer">
                     <div class="timeline-inner">
-                        <p>Year</p>
+                        <img src="images/timeline-line.jpg" style="text-align: center;"/>
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="month">
                 <div class="timeline-outer">
                     <div class="timeline-inner">
-                        <p>Month</p>
+                        <img src="images/timeline-line.jpg" style="text-align: center;"/>
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="week">
                 <div class="timeline-outer">
                     <div class="timeline-inner">
-                        <p>Week</p>
+                        <img src="images/timeline-line.jpg" style="text-align: center;"/>
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="day">
                 <div class="timeline-outer">
                     <div class="timeline-inner">
-                        <p>Day</p>
+                        <img src="images/timeline-line.jpg" />
                     </div>
                 </div>
             </div>
         </div>
         <script>
             var canvas, stage, preload;
+            var currTab = "year";
+            var selection;
             $(function () {
                 replaceTimeline("year");
 
@@ -87,7 +71,7 @@
                 canvas.height = 75;
                 canvas.width = 768;
                 stage = new createjs.Stage(canvas);
-                
+
                 stage.addEventListener("stagemousedown", onMouseClick);
 
                 var year = new createjs.Text("YEAR", "50px Calibri", "#666666");
@@ -106,14 +90,14 @@
                 day.x = 672 - day.getMeasuredWidth() / 2;
                 stage.addChild(day);
 
-                var selection = new createjs.Shape();
+                selection = new createjs.Shape();
                 selection.graphics.beginFill('#93CCEA').drawRect(
                     0,
                     65,
                     canvas.width / 4,
                     10);
                 stage.addChild(selection);
-                
+
                 createjs.Ticker.setInterval(window.requestAnimationFrame);
                 createjs.Ticker.addEventListener("tick", tick);
             })
@@ -124,15 +108,57 @@
                 $('#day').removeClass('active');
                 if (evt.stageX < 192) {
                     $('#year').addClass('active');
+                    currTab = "year";
                 } else if (evt.stageX < 384) {
                     $('#month').addClass('active');
+                    currTab = "month";
                 } else if (evt.stageX < 576) {
                     $('#week').addClass('active');
+                    currTab = "week";
                 } else {
                     $('#day').addClass('active');
+                    currTab = "day";
                 }
             }
             function tick() {
+                switch (currTab) {
+                    case "year":
+                        if (selection.x != 0) {
+                            selection.x -= 5;
+                            if (selection.x < 0)
+                                selection.x = 0;
+                        }
+                        break;
+                    case "month":
+                        if (selection.x < 192) {
+                            selection.x += 5;
+                            if (selection.x > 192)
+                                selection.x = 192;
+                        } else if (selection.x > 192) {
+                            selection.x -= 5;
+                            if (selection.x < 192)
+                                selection.x = 192;
+                        }
+                        break;
+                    case "week":
+                        if (selection.x < 384) {
+                            selection.x += 5;
+                            if (selection.x > 384)
+                                selection.x = 384;
+                        } else if (selection.x > 384) {
+                            selection.x -= 5;
+                            if (selection.x < 384)
+                                selection.x = 384;
+                        }
+                        break;
+                    case "day":
+                        if (selection.x < 576) {
+                            selection.x += 5;
+                            if (selection.x > 576)
+                                selection.x = 576;
+                        }
+                        break;
+                }
                 stage.update();
             }
             function prepareAssets() {
