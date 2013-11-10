@@ -56,12 +56,12 @@
         </div>
         <div>
             <div style="position: absolute; top: 618px; width: 768px;">
-                <img src="images/gradient-overlay_top.png" style="z-index: 200;"/>
+                <img src="images/gradient-overlay_top.png" style="z-index: 200; width: 768px;"/>
             </div>
             <div style="position: absolute; top: 1213px; width: 768px;">
-                <img src="images/gradient-overlay-bottom.png" style="z-index: 200;"/>
+                <img src="images/gradient-overlay-bottom.png" style="z-index: 200; width: 768px;"/>
             </div>
-            <div class="tab-content">
+            <div class="tab-content" style="width: 768px;">
                 <div class="tab-pane" id="year">
                     <div class="timeline-outer">
                         <div id="year-inner" class="timeline-inner">
@@ -104,19 +104,19 @@
 
                 stage.addEventListener("stagemousedown", onMouseClick);
 
-                var year = new createjs.Text("YEAR", "50px Calibri", "#666666");
+                var year = new createjs.Text("YEAR", "50px Calibri, Sans-Serif", "#666666");
                 year.x = 96 - year.getMeasuredWidth() / 2;
                 stage.addChild(year);
 
-                var month = new createjs.Text("MONTH", "50px Calibri", "#666666");
+                var month = new createjs.Text("MONTH", "50px Calibri, Sans-Serif", "#666666");
                 month.x = 288 - month.getMeasuredWidth() / 2;
                 stage.addChild(month);
 
-                var week = new createjs.Text("WEEK", "50px Calibri", "#666666");
+                var week = new createjs.Text("WEEK", "50px Calibri, Sans-Serif", "#666666");
                 week.x = 480 - week.getMeasuredWidth() / 2;
                 stage.addChild(week);
 
-                var day = new createjs.Text("DAY", "50px Calibri", "#666666");
+                var day = new createjs.Text("DAY", "50px Calibri, Sans-Serif", "#666666");
                 day.x = 672 - day.getMeasuredWidth() / 2;
                 stage.addChild(day);
 
